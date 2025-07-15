@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Login to BWEW</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <form class="form-container" action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="back-link">
+    Don't have an account? <a href="{% url 'register' %}">Register here</a>
+  </div>
+</div>
+{% endblock content %}

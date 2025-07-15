@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create Donation Receipt</h2>
+<form method="POST" action="{% url 'create_receipt' %}">
+  {% csrf_token %}
+  <label>Donor Name</label>
+  <input type="text" name="donor_name" required>
+
+  <label>Contact Number</label>
+  <input type="text" name="contact_no" required>
+
+  <label>Donation Date</label>
+  <input type="date" name="donation_date" required>
+
+  <label>Amount</label>
+  <input type="number" name="amount" required>
+
+  <label>Remarks</label>
+  <textarea name="remarks"></textarea>
+
+  <button type="submit">Generate Receipt</button>
+</form>
+
+{% if receipt %}
+  <h3>Receipt Generated</h3>
+  <p><strong>Donor Name:</strong> {{ receipt.donor_name }}</p>
+  <p><strong>Contact Number:</strong> {{ receipt.contact_no }}</p>
+  <p><strong>Donation Date:</strong> {{ receipt.donation_date }}</p>
+  <p><strong>Amount:</strong> {{ receipt.amount }}</p>
+  <p><strong>Remarks:</strong> {{ receipt.remarks }}</p>
+{% endif %}
+{% endblock %}

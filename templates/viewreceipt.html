@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Donation Receipts</h2>
+
+<table border="1" cellpadding="10" cellspacing="0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Donor Name</th>
+      <th>Contact No.</th>
+      <th>Donation Date</th>
+      <th>Amount</th>
+      <th>Receipt Number</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if receipts %}
+      {% for receipt in receipts %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ receipt.donor_name }}</td>
+        <td>{{ receipt.contact_no }}</td>
+        <td>{{ receipt.donation_date }}</td>
+        <td>₹{{ receipt.amount }}</td>
+        <td>{{ receipt.receipt_number }}</td>
+        <td>
+          <form method="POST" action="{% url 'deletereceipt' receipt.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="7">No donation receipts found.</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock content %}
